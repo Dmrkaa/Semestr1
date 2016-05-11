@@ -9,13 +9,40 @@
 using namespace System;
 using namespace System::Windows::Forms;
 
-
+void Name();
+ char Store[10][50];
+ int i,NumberOfFile;
 [STAThreadAttribute]
-void main(array<String^>^ arg) {
-	Application::EnableVisualStyles();
-	Application::SetCompatibleTextRenderingDefault(false);
+ void main(array<String^>^ arg) {
 
-	
-	semestr1::MyForm form;
-	Application::Run(%form);
-}
+	 WIN32_FIND_DATA File;
+	 HANDLE F;
+	 char KK[50];
+	 int k;
+
+
+	 F = FindFirstFile(L"C:\\Users\\Qwert\\Desktop\\Wallp1\\*.jpg", &File);
+	 if (F != INVALID_HANDLE_VALUE)
+	 {
+		 do {
+
+
+			 wcstombs(KK, File.cFileName, 20);
+			 strcpy(Store[NumberOfFile], KK);
+			 NumberOfFile++;
+
+		 } while (FindNextFile(F, &File) != 0);
+		 FindClose(F);
+	 }
+
+
+
+
+	 Application::EnableVisualStyles();
+	 Application::SetCompatibleTextRenderingDefault(false);
+
+
+	 semestr1::MyForm form;
+	 Application::Run(%form);
+ }
+
